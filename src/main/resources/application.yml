@@ -1,0 +1,33 @@
+spring:
+  application:
+    name: spring-plus
+  datasource:
+    url: jdbc:mysql://localhost:3306/spring-plus?rewriteBatchedStatements=true
+    username: testuser
+    password: testpass
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+  data:
+    redis:
+      host: ${REDIS_HOST:localhost}
+      port: ${REDIS_PORT:6379}
+
+  jpa:
+    hibernate:
+      ddl-auto: create
+    properties:
+      hibernate:
+        show_sql: true
+        format_sql: true
+        use_sql_comments: true
+        dialect: org.hibernate.dialect.MySQLDialect
+        jdbc.batch_size: 100
+        order_inserts: true
+        order_updates: true
+    open-in-view: false
+
+  batch.job.enabled: false
+
+jwt:
+  secret:
+    key: dGhpcy1pcy1hLXNlY3JldC1rZXktdGhhdC1zaG91bGQtYmUtYmFzZTY0
