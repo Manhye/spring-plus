@@ -59,7 +59,7 @@ public class TodoService {
         LocalDateTime endTime = todoFindRequest.getEndTime();
 
 
-        Page<Todo> todos = todoRepository.searchTodos(weather, startTime, endTime, pageable);
+        Page<Todo> todos = todoRepository.findByConditions(weather, startTime, endTime, pageable);
 
         return todos.map(todo -> new TodoResponse(
                 todo.getId(),

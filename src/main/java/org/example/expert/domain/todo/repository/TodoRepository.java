@@ -12,7 +12,7 @@ import java.util.Optional;
 
 import jakarta.persistence.TypedQuery;
 
-public interface TodoRepository extends JpaRepository<Todo, Long>, TodoRepositoryCustom {
+public interface TodoRepository extends JpaRepository<Todo, Long> {
 
     @Query("SELECT t FROM Todo t LEFT JOIN FETCH t.user u ORDER BY t.modifiedAt DESC")
     Page<Todo> findAllByOrderByModifiedAtDesc(Pageable pageable);
@@ -21,4 +21,11 @@ public interface TodoRepository extends JpaRepository<Todo, Long>, TodoRepositor
             "LEFT JOIN t.user " +
             "WHERE t.id = :todoId")
     Optional<Todo> findByIdWithUser(@Param("todoId") Long todoId);
+
+    @Query("SELECT t FROM Todo t "
+        + "WHERE (:weather IS NULL OR t.weather = :weather) "
+        + "AND (:start IS NULL OR t.modifiedAt >= :start) "
+        + "AND (:end IS NULL OR t.modifiedAt <= :end) "
+        + "ORDER BY t.modifiedAt DESC")
+    Page<Todo> findByConditions(String weather, LocalDateTime startTime, LocalDateTime endTime, Pageable pageable);
 }
