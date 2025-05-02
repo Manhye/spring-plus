@@ -10,7 +10,10 @@ import org.example.expert.domain.user.enums.UserRole;
 @Getter
 @Entity
 @NoArgsConstructor
-@Table(name = "users")
+// @Table(name="users")
+@Table(name = "users", indexes = {
+    @Index(name = "idx_nickname", columnList = "nickname")
+})
 public class User extends Timestamped {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -45,5 +48,9 @@ public class User extends Timestamped {
 
     public void updateRole(UserRole userRole) {
         this.userRole = userRole;
+    }
+
+    public void changeNickname(String nickname) {
+        this.nickname = nickname;
     }
 }
