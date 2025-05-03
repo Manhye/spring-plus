@@ -2,9 +2,9 @@ spring:
   application:
     name: spring-plus
   datasource:
-    url: jdbc:mysql://practicedb.c94ik0aakzxk.ap-northeast-2.rds.amazonaws.com:3306/springdb?rewriteBatchedStatements=true&serverTimezone=Asia/Seoul
-    username: ${MYSQL_ID}
-    password: ${MYSQL_PASSWORD}
+    url: jdbc:mysql://localhost:3306/spring-plus?rewriteBatchedStatements=true
+    username: testuser
+    password: testpass
     driver-class-name: com.mysql.cj.jdbc.Driver
 
   data:
@@ -12,8 +12,10 @@ spring:
       host: ${REDIS_HOST:localhost}
       port: ${REDIS_PORT:6379}
 
+
   profiles:
     active: dev
+
 
   jpa:
     hibernate:

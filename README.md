@@ -1,5 +1,14 @@
 # SPRING PLUS
 
+##
+
+![img_4.png](image/img_4.png)
+
+![img_5.png](image/img_5.png)
+
+![img_6.png](image/img_6.png)
+
+
 ## Large Data Processing: Efficient User Lookup by Nickname
 
 On this experiment, I aimed to find a more efficient way to search for users by nickname using JPA when handling a lare dataset.
@@ -50,7 +59,7 @@ Test code to measure performance:
 This is the way how I count the time.
 
 The result of this common JPA code shows like this:
-![img_2.png](img_2.png)
+![img_2.png](image/img_2.png)
 
 Instead of fetching the entire entity, I used a JPQL projection to only select the necessary fields(id, email).
 ```java
@@ -61,7 +70,7 @@ Instead of fetching the entire entity, I used a JPQL projection to only select t
 `UserRepoistory.java`
 
 The result of this JPQL Projection code shows like this:
-![img.png](img.png)
+![img.png](image/img.png)
 
 This time, I added a DB index to the `nickname` column to spped up the queyr at the database level.
 ```java
@@ -71,11 +80,11 @@ This time, I added a DB index to the `nickname` column to spped up the queyr at 
 public class User extends Timestamped {
 ```
 The result of this index shows like this:
-![img_1.png](img_1.png)
+![img_1.png](image/img_1.png)
 It shows dramatically big changes.
 
 When I used both optimizations, it turned out like this:
-![img_3.png](img_3.png)
+![img_3.png](image/img_3.png)
 
 ### Conclusion
 | Method             | Performance |TIME|
