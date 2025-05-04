@@ -112,6 +112,7 @@ Test code to measure performance:
 This is the way how I count the time.
 
 The result of this common JPA code shows like this:
+
 ![img_2.png](image/JPA_RunningTime.png)
 
 Instead of fetching the entire entity, I used a JPQL projection to only select the necessary fields(id, email).
@@ -123,6 +124,7 @@ Instead of fetching the entire entity, I used a JPQL projection to only select t
 `UserRepoistory.java`
 
 The result of this JPQL Projection code shows like this:
+
 ![img.png](image/JPQL_Projection_RunningTime.png)
 
 This time, I added a DB index to the `nickname` column to spped up the queyr at the database level.
@@ -133,10 +135,13 @@ This time, I added a DB index to the `nickname` column to spped up the queyr at 
 public class User extends Timestamped { }
 ```
 The result of this index shows like this:
+
 ![img_1.png](image/Index_RunningTIme.png)
+
 It shows dramatically big changes.
 
 When I used both optimizations, it turned out like this:
+
 ![img_3.png](image/Both_RunningTime.png)
 
 ### Conclusion
