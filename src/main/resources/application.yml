@@ -33,7 +33,7 @@ spring:
 
 jwt:
   secret:
-    key: dGhpcy1pcy1hLXNlY3JldC1rZXktdGhhdC1zaG91bGQtYmUtYmFzZTY0
+    key: "IGVy2RrhXr5jQv3ZtYBWzKoW6kQgJpjrB50rQmU+4JPBa5zKT4Q1cOZu7blIEtYo1+93CEEMlA7ybK49w0tzqA=="
 
 cloud:
   aws:

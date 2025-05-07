@@ -18,7 +18,11 @@ class AuthController(
 
     @PostMapping("/auth/signup")
     fun signup(@Valid @RequestBody signupRequest: SignupRequest): SignupResponse {
-        return authService.signup(signupRequest)
+        val response = authService.signup(signupRequest)
+
+        println(">>> response = $response")
+
+        return response
     }
 
     @PostMapping("/auth/signin")

@@ -55,5 +55,7 @@ class JwtAuthenticationFilter(
                 return
             }
         }
+        filterChain.doFilter(request, response)
+
     }
 }

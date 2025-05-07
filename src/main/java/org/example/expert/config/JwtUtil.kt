@@ -32,13 +32,14 @@ class JwtUtil {
         key = Keys.hmacShaKeyFor(bytes)
     }
 
-    fun createToken(userId: Long?, email: String, userRole: UserRole): String{
+    fun createToken(userId: Long?, email: String, userRole: UserRole, nickname: String = "none"): String{
         val date = Date()
         return  "$BEARER_PREFIX" +
                 Jwts.builder()
                     .setSubject(userId.toString())
                     .claim("email", email)
                     .claim("userRole", userRole)
+                    .claim("nickname", nickname)
                     .setExpiration(Date(date.time + TOKEN_TIME))
                     .setIssuedAt(date)
                     .signWith(key, signatureAlgorithm)
