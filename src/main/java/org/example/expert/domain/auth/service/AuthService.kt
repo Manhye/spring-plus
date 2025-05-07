@@ -50,7 +50,7 @@ class AuthService(
         val user = userRepository.findByEmail(signinRequest.email)
             ?: throw InvalidRequestException("가입되지 않은 유저입니다.")
 
-        if(!passwordEncoder.matches(signinRequest.password, user.password)){
+        if(!user.password?.let { passwordEncoder.matches(signinRequest.password, it) }!!){
             throw AuthException("잘못된 비밀번호입니다.")
         }
 

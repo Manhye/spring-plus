@@ -31,11 +31,11 @@ class UserService(
             .orElseThrow{
                 InvalidRequestException("User not found")
             }
-        if(passwordEncoder.matches(userChangePasswordRequest.newPassword, user.password)){
+        if(user.password?.let { passwordEncoder.matches(userChangePasswordRequest.newPassword, it) } == true){
             throw InvalidRequestException("새 비밀번호는 기존 비밀번호와 같을 수 없습니다.")
         }
 
-        if(!passwordEncoder.matches(userChangePasswordRequest.oldPassword, user.password)){
+        if(!user.password?.let { passwordEncoder.matches(userChangePasswordRequest.oldPassword, it) }!!){
             throw InvalidRequestException("잘못된 비밀번호입니다.")
         }
 
