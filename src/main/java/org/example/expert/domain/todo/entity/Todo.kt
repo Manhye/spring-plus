@@ -8,7 +8,7 @@ import org.example.expert.domain.common.entity.TimestampedKt
 
 @Entity
 @Table(name = "todos")
-class Todo (
+class Todo  (
     @Column(nullable = false)
     var title: String,
 
@@ -25,7 +25,6 @@ class Todo (
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     var id: Long? = null
-        protected set
 
     @OneToMany(mappedBy = "todo", cascade = [CascadeType.REMOVE])
     var comments: MutableList<Comment> = mutableListOf()
@@ -36,4 +35,7 @@ class Todo (
     init{
         managers.add(Manager(user, this))
     }
+
+
+    constructor() : this(title = "", contents = "", weather = null, user = User())
 }

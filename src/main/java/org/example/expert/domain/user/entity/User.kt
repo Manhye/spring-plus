@@ -49,6 +49,8 @@ class User (
     }
 
     constructor(email: String, password: String, userRole: UserRole) :
-            this(null, email, password, userRole)
+            this(null, email=email, password=password, userRole=userRole)
+
+    constructor() : this(id = null, email = "", password = null, userRole = UserRole.USER)
 
 }
