@@ -1,0 +1,47 @@
+package org.example.expert.config
+
+import org.example.expert.domain.auth.exception.AuthException
+import org.example.expert.domain.common.exception.InvalidRequestException
+import org.example.expert.domain.common.exception.ServerException
+import org.springframework.http.HttpStatus
+import org.springframework.http.ResponseEntity
+import org.springframework.web.bind.MethodArgumentNotValidException
+import org.springframework.web.bind.annotation.ExceptionHandler
+import org.springframework.web.bind.annotation.RestControllerAdvice
+
+@RestControllerAdvice
+class GlobalExceptionHandler {
+
+    @ExceptionHandler(InvalidRequestException::class)
+    fun handleInvalidRequestException(ex: InvalidRequestException): ResponseEntity<Map<String, Any>> {
+        val status = HttpStatus.BAD_REQUEST
+        return getErrorResponse(status, ex.message ?: "Invalid request.")
+    }
+
+    @ExceptionHandler(AuthException::class)
+    fun handleAuthException(ex: AuthException): ResponseEntity<Map<String, Any>> {
+        val status = HttpStatus.UNAUTHORIZED
+        return getErrorResponse(status, ex.message ?: "Authentication failed")
+    }
+
+    @ExceptionHandler(ServerException::class)
+    fun handleServerException(ex: ServerException): ResponseEntity<Map<String, Any>> {
+        val status = HttpStatus.INTERNAL_SERVER_ERROR
+        return getErrorResponse(status, ex.message ?: "Server error")
+    }
+
+    @ExceptionHandler(MethodArgumentNotValidException::class)
+    fun handleValidationExceptions(ex: MethodArgumentNotValidException): ResponseEntity<Map<String, Any>> {
+        val status = HttpStatus.BAD_REQUEST
+        val errorMessage = ex.bindingResult.allErrors.firstOrNull()?.defaultMessage ?: "Validation failed"
+        return getErrorResponse(status, errorMessage)
+    }
+
+    private fun getErrorResponse(status: HttpStatus, message: String): ResponseEntity<Map<String, Any>> {
+        val errorResponse = mutableMapOf<String, Any>()
+        errorResponse["status"] = status.name
+        errorResponse["code"] = status.value()
+        errorResponse["message"] = message
+        return ResponseEntity(errorResponse, status)
+    }
+}
